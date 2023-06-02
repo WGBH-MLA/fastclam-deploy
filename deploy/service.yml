@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+namespace: clams
+metadata:
+  name: fastclam
+spec:
+  selector:
+    app: fastclam
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+
+kind: Deployment
+namespace: clams
+metadata:
+  labels:
+    app: fastclam
+
+  name: fastclam
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: fastclam
+
+  template:
+    metadata:
+      labels:
+        app: fastclam
+
+    spec:
+      containers:
+        - image: ghcr.io/wgbh-mla/fastclam:main
+          name: fastclam
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
